@@ -19,10 +19,10 @@ RF24 radio(CE_PIN, CSN_PIN);
 char dataReceived[10];
 bool newData = false;
 
-//===========
 
-void setup() {
-
+void setup() 
+{
+    pinMode(3,OUTPUT);
     Serial.begin(9600);
     Serial.println("Starting...");
     radio.begin();
@@ -31,26 +31,36 @@ void setup() {
     radio.startListening();
 }
 
-//=============
-
-void loop() {
+void loop() 
+{
     getData();
-    showData();
+    updateRelayState();
 }
 
-//==============
 
-void getData() {
-    if (radio.available()) {
+void getData() 
+{
+    if (radio.available()) 
+    {
         radio.read(&dataReceived, sizeof(dataReceived));
         newData = true;
     }
 }
 
-void showData() {
-    if (newData == true) {
-        Serial.print("Data received ");
-        Serial.println(dataReceived);
+void updateRelayState() 
+{
+    if (newData == true) 
+    {
+      Serial.println("Data received");
+      Serial.println(dataReceived[8]);
+        if(dataReceived[8] == '1')
+        {
+          digitalWrite(3,HIGH);
+        }
+        else if(dataReceived[8] == '2')
+        {
+          digitalWrite(3,LOW);
+        }
         newData = false;
     }
 }

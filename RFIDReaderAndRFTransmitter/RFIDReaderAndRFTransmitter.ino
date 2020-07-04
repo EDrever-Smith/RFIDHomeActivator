@@ -29,7 +29,7 @@ enum Status {entering = '1', exiting = '2'} status;
 void setup() 
 {
     Serial.begin(9600);		// Initialize serial communications with the PC
-
+    Serial.println("Starting...");
     SPI.begin();			// Init SPI bus
 
     reader.PCD_Init();		// Init MFRC522
@@ -41,6 +41,7 @@ void setup()
     radio.openWritingPipe(slaveAddress);
 
     status = entering;
+    Serial.println("Startup complete");
 }
 
 // the loop function runs over and over again until power down or reset
@@ -54,6 +55,7 @@ void loop()
     if (!reader.PICC_ReadCardSerial())
         return;
 
+    Serial.println("Card Detected");
     if (reader.uid.uidByte[0] == 0x3d && reader.uid.uidByte[1] == 0x4a && reader.uid.uidByte[2] == 0x64 && reader.uid.uidByte[3] == 0x9d) //Ewan's Uni card
     {
         if (status == entering)
