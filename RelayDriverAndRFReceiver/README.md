@@ -1,1 +1,1 @@
-![RelayBoard](https://github.com/EDrever-Smith/RFIDHomeActivator/blob/gh-resources/RelayBoard.jpg)
+![RelayBoard](https://github.com/Edreva/RFIDHomeActivator/blob/gh-resources/RelayBoard.jpg)
